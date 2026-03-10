@@ -1,7 +1,16 @@
 const graphql = require('graphql');
+const_ = require('lodash');
 
 // Getting properties from the graphql package
 const { GraphQLObjectType, GraphQLString, GraphQLSchema } = graphql;
+
+// Dummy data 
+var books = [
+    { name: "House Of The Dragon", genre: 'Fantasy', id: '1'},
+    { name: 'Game Of Thrones', genre: 'Fantasy', id: '2'},
+    { name: 'A Knight Of The Seven Kingdoms', genre: 'Fantasy', id: '3'},
+    { name: 'The Long Earth', genre: 'Sci-Fi', id: '4'},
+];
 
 const BookType = new GraphQLObjectType({
     name: 'Book',
@@ -22,6 +31,7 @@ const RootQuery = new GraphQLObjectType({
             resolve(parent, args){
                 args.id;
                 // code to get the data from the database or other source
+                return _.find(books, {id: args.id});
             }
         }
     }
