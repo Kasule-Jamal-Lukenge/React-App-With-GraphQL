@@ -1,13 +1,15 @@
 const express = require('express');
 const {graphqlHTTP} = require('express-graphql');
-const { schema } = require('./schema/schema');
+const schema  = require('./schema/schema');
 
 //Invoking the function to create the app
 const app = express();
 
 //middleware to handle graphql requests
 app.use('/graphql',graphqlHTTP({
-
+    schema,
+    //using graphical
+    graphiql: true
 }));
 
 // Bootstrapping the application
