@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const app = express();
 
 //Establishing a connection to mlab database
-mongoose.connect('mongodb+srv://root:Swabra-1234!@gql-ninja.rn7e3vv.mongodb.net/?appName=gql-ninja');
+mongoose.connect('mongodb+srv://root:Swabra-1234!@gql-ninja.rn7e3vv.mongodb.net/jamie-ninja?appName=gql-ninja');
 mongoose.connection.once('open', () => {
     try{
         console.log("Connected To Database");
