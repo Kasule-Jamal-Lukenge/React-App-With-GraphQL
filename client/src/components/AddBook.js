@@ -1,35 +1,68 @@
-import { useQuery } from "@apollo/client/react";
-import { GET_AUTHORS } from "../queries/queries";
+import { useState } from "react";
+import { useMutation, useQuery } from "@apollo/client/react";
+import { addBookMutation, GET_AUTHORS } from "../queries/queries";
 
 function AddBook(){
+
+    const [name, setName] = useState("");
+    const [genre, setGenre] = useState("");
+    const [authorId, setAuthorId] = useState("");
+
     const { loading, error, data } = useQuery(GET_AUTHORS);
+    const [addBook] = useMutation(addBookMutation);
+
+    const handleSubmit = (e) => {
+
+        e.preventDefault();
+
+        addBook({
+            variables: {
+                name,
+                genre,
+                authorId
+            }
+        })
+    }
 
     if(loading) return "Please Wait For A While....";
     if (error) return "Oops!!! Something Went Wrong...";
 
     return(
-        <form>
+        <form id="add-book" onSubmit={handleSubmit}>
             <div className="field">
-                <label htmlFor="">Book Title:</label>
-                <input type="text" name="" id="" />
+                <label>Book Title:</label>
+                <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
             </div>
 
             <div className="field">
-                <label htmlFor="">Genre:</label>
-                <input type="text" name="" id="" />
+                <label>Genre:</label>
+                <input
+                    type="text"
+                    value={genre}
+                    onChange={(e) => setGenre(e.target.value)}
+                />
             </div>
 
             <div className="field">
-                <label htmlFor="">Author:</label>
-                <select>
+                <label>Author:</label>
+                <select
+                    value={authorId}
+                    onChange={(e) => setAuthorId(e.target.value)}
+                >
                     <option>---Select An Author---</option>
-                    {data.authors.map(author =>( 
-                        <option value={ author.id } key={ author.id }>{ author.name }</option>
+                    {data?.authors.map(author =>(
+                        <option key={author.id} value={author.id}>
+                            {author.name}
+                        </option>
                     ))}
                 </select>
             </div>
 
-            <button>+</button>
+            <button type="submit">+</button>
 
         </form>
     );
