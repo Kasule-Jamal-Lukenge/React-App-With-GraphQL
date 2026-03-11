@@ -1,6 +1,7 @@
 import BookList from "./components/BookList";
 import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 import { ApolloProvider } from "@apollo/client/react";
+import AddBook from "./components/AddBook";
 
 // Create link
 const link = new HttpLink({
@@ -19,6 +20,7 @@ function App() {
       <div id="main">
         <h1>Baddie List</h1>
         <BookList />
+        <AddBook />
       </div>
     </ApolloProvider>
   );
