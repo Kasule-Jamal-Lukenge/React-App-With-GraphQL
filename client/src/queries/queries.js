@@ -1,5 +1,4 @@
 import { gql } from "@apollo/client";
-import { useQuery } from '@apollo/client/react';
 
 const GET_AUTHORS = gql`
 {
@@ -15,9 +14,29 @@ const getBooksQuery = gql`
 {
     books{
         name,
-        genre
+        genre,
+        id
     }
 }
+`;
+
+const getBookQuery = gql`
+    query($id: ID){
+        book(id: $id){
+            id,
+            name,
+            genre,
+            author{
+                id,
+                name,
+                age,
+                books{
+                    name,
+                    id
+                }
+            }
+        }
+    }
 `;
 
 
@@ -30,4 +49,4 @@ const addBookMutation = gql`
     }
 `;
 
-export {GET_AUTHORS, getBooksQuery, addBookMutation};
+export {GET_AUTHORS, getBooksQuery, addBookMutation, getBookQuery};
